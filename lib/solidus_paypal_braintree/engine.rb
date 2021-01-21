@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'solidus_support'
+require 'solidus_paypal_braintree'
 
 module SolidusPaypalBraintree
   class Engine < Rails::Engine
@@ -23,31 +23,31 @@ module SolidusPaypalBraintree
       Spree::PermittedAttributes.source_attributes.concat [:nonce, :payment_type]
     end
 
-    if SolidusSupport.frontend_available?
+    # if SolidusSupport.frontend_available?
       config.assets.precompile += [
         'solidus_paypal_braintree/checkout.js',
         'solidus_paypal_braintree/frontend.js',
         'spree/frontend/apple_pay_button.js'
       ]
-      paths["app/controllers"] << "lib/controllers/frontend"
-      paths["app/views"] << "lib/views/frontend"
-    end
+    #   paths["app/controllers"] << "lib/controllers/frontend"
+    #   paths["app/views"] << "lib/views/frontend"
+    # end
 
-    if SolidusSupport.backend_available?
+    # if SolidusSupport.backend_available?
       config.assets.precompile += ["spree/backend/solidus_paypal_braintree.js"]
-      paths["app/controllers"] << "lib/controllers/backend"
+    #   paths["app/controllers"] << "lib/controllers/backend"
 
-      # We support Solidus v1.2, which requires some different markup in the
-      # source form partial. This will take precedence over lib/views/backend.
-      paths["app/views"] << "lib/views/backend_v1.2" if Spree.solidus_gem_version < Gem::Version.new('1.3')
+    #   # We support Solidus v1.2, which requires some different markup in the
+    #   # source form partial. This will take precedence over lib/views/backend.
+    #   paths["app/views"] << "lib/views/backend_v1.2" if Spree.solidus_gem_version < Gem::Version.new('1.3')
 
-      # Solidus v2.4 introduced preference field partials but does not ship a hash field type.
-      # This is solved in Solidus v2.5.
-      if Spree.solidus_gem_version <= Gem::Version.new('2.5.0')
-        paths["app/views"] << "lib/views/backend_v2.4"
-      end
+    #   # Solidus v2.4 introduced preference field partials but does not ship a hash field type.
+    #   # This is solved in Solidus v2.5.
+    #   if Spree.solidus_gem_version <= Gem::Version.new('2.5.0')
+    #     paths["app/views"] << "lib/views/backend_v2.4"
+    #   end
 
-      paths["app/views"] << "lib/views/backend"
+    #   paths["app/views"] << "lib/views/backend"
 
       initializer "solidus_paypal_braintree_admin_menu_item", after: "register_solidus_paypal_braintree_gateway" do
         Spree::Backend::Config.configure do |config|
@@ -59,6 +59,6 @@ module SolidusPaypalBraintree
           )
         end
       end
-    end
+    # end
   end
 end
