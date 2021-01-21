@@ -29,13 +29,13 @@ module SolidusPaypalBraintree
         'solidus_paypal_braintree/frontend.js',
         'spree/frontend/apple_pay_button.js'
       ]
-    #   paths["app/controllers"] << "lib/controllers/frontend"
-    #   paths["app/views"] << "lib/views/frontend"
+      paths["app/controllers"] << "lib/controllers/frontend"
+      paths["app/views"] << "lib/views/frontend"
     # end
 
     # if SolidusSupport.backend_available?
       config.assets.precompile += ["spree/backend/solidus_paypal_braintree.js"]
-    #   paths["app/controllers"] << "lib/controllers/backend"
+      paths["app/controllers"] << "lib/controllers/backend"
 
     #   # We support Solidus v1.2, which requires some different markup in the
     #   # source form partial. This will take precedence over lib/views/backend.
@@ -47,7 +47,7 @@ module SolidusPaypalBraintree
     #     paths["app/views"] << "lib/views/backend_v2.4"
     #   end
 
-    #   paths["app/views"] << "lib/views/backend"
+      paths["app/views"] << "lib/views/backend"
 
       initializer "solidus_paypal_braintree_admin_menu_item", after: "register_solidus_paypal_braintree_gateway" do
         Spree::Backend::Config.configure do |config|
